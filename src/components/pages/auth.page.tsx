@@ -13,7 +13,7 @@ export const AuthPage = () => {
         <title>{Metadata.title.authentication}</title>
       </Head>
       <div className="flex h-full">
-        <div className="flex flex-1 flex-col bg-zinc-900 text-lg text-white">
+        <div className="hidden flex-1 flex-col bg-zinc-900 text-lg text-white md:flex">
           <div className="flex-1 p-8">{Metadata.name}</div>
           <div className="p-8">{Metadata.description}</div>
         </div>
