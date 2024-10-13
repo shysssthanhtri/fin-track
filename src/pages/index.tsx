@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import { AddTransactionCard } from "@/components/molecules/add-transaction-card";
+import { TransactionHistory } from "@/components/organisms/transaction-history";
 import { PageTemplate } from "@/components/templates/page-template";
 import { Metadata } from "@/config/metadata";
 
@@ -13,8 +14,9 @@ export default function Home() {
       </Head>
       <PageTemplate className="flex flex-col-reverse gap-4 sm:flex-row">
         <div className="flex-1 bg-red-50">Left</div>
-        <div className="flex-1">
+        <div className="flex-1 space-y-4">
           <AddTransactionCard />
+          <TransactionHistory />
         </div>
       </PageTemplate>
     </>

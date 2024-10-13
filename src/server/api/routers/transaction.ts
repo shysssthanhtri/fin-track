@@ -12,4 +12,15 @@ export const transactionRouter = createTRPCRouter({
         },
       });
     }),
+
+  list: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.db.transaction.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      orderBy: {
+        time: "desc",
+      },
+    });
+  }),
 });

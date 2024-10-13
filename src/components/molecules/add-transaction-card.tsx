@@ -12,12 +12,15 @@ import { api } from "@/utils/api";
 
 export const AddTransactionCard = () => {
   const ref = useRef<TransactionFormRef>(null);
+  const utils = api.useUtils();
+
   const { mutate, isPending } = api.transaction.create.useMutation({
     onSuccess: () => {
       toast({
         title: "Saved",
       });
       ref.current?.reset();
+      void utils.transaction.list.refetch();
     },
     onError: (err) => {
       toast({

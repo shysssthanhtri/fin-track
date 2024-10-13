@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import React, { forwardRef, useCallback, useImperativeHandle } from "react";
 import { useForm } from "react-hook-form";
@@ -31,6 +30,7 @@ import {
 import { CreateTransactionDto } from "@/dtos/transaction.dto";
 import { cn } from "@/lib/utils";
 import TransactionTypeSchema from "@/schemas/inputTypeSchemas/TransactionTypeSchema";
+import { formatDate } from "@/utils/date";
 
 interface TaskFormProps {
   isPending?: boolean;
@@ -168,7 +168,7 @@ export const TransactionForm = forwardRef<TransactionFormRef, TaskFormProps>(
                           )}
                         >
                           {field.value ? (
-                            format(field.value, "PPP")
+                            formatDate(field.value)
                           ) : (
                             <span>Pick a date</span>
                           )}
