@@ -1,18 +1,14 @@
 import { Loader2 } from "lucide-react";
-import { signIn, useSession } from "next-auth/react";
-import React, { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import React from "react";
+
+import { AuthPage } from "@/components/pages/auth.page";
 
 interface AuthGuardProps {
   children: React.ReactNode;
 }
 export const AuthGuard = ({ children }: AuthGuardProps) => {
   const { status } = useSession();
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      void signIn();
-    }
-  }, [status]);
 
   if (status === "loading") {
     return (
@@ -23,7 +19,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     );
   }
 
-  if (status === "unauthenticated") return null;
+  if (status === "unauthenticated") return <AuthPage />;
 
   return children;
 };
