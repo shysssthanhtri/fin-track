@@ -69,4 +69,4 @@ const ButtonLoading = React.forwardRef<HTMLButtonElement, ButtonLoadingProps>(
   },
 );
 
-export { Button, buttonVariants }
+export { Button, ButtonLoading, buttonVariants }

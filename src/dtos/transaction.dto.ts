@@ -13,3 +13,4 @@ export const CreateTransactionDto = z.object(TransactionDto.shape).pick({
   amount: true,
   time: true,
 });
+export type TCreateTransactionDto = z.infer<typeof CreateTransactionDto>;

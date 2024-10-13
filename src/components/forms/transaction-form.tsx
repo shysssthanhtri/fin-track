@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import React, { forwardRef, useCallback, useImperativeHandle } from "react";
 import { useForm } from "react-hook-form";
@@ -46,7 +47,9 @@ export const TransactionForm = forwardRef<TransactionFormRef, TaskFormProps>(
     const form = useForm<FormSchema>({
       resolver: zodResolver(formSchema),
       defaultValues: {
+        description: "",
         type: "INCOME",
+        amount: 0,
       },
     });
 
@@ -165,7 +168,7 @@ export const TransactionForm = forwardRef<TransactionFormRef, TaskFormProps>(
                           )}
                         >
                           {field.value ? (
-                            field.value.toISOString()
+                            format(field.value, "PPP")
                           ) : (
                             <span>Pick a date</span>
                           )}

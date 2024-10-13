@@ -11,7 +11,7 @@ export default function Home() {
         <title>{Metadata.title.home}</title>
         <meta name="description" content={Metadata.description} />
       </Head>
-      <PageTemplate className="flex gap-x-4">
+      <PageTemplate className="flex flex-col-reverse gap-4 sm:flex-row">
         <div className="flex-1 bg-red-50">Left</div>
         <div className="flex-1">
           <AddTransactionCard />
