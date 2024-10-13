@@ -5,6 +5,7 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
+import { AuthGuard } from "@/components/guards/auth.guard";
 import { api } from "@/utils/api";
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -14,7 +15,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <div className={GeistSans.className}>
-        <Component {...pageProps} />
+        <AuthGuard>
+          <Component {...pageProps} />
+        </AuthGuard>
       </div>
     </SessionProvider>
   );
