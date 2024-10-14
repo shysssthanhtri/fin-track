@@ -23,6 +23,7 @@ import { UserSettingDto } from "@/dtos/user-setting.dto";
 import { getCurrencySymbol } from "@/utils/currency";
 
 interface CurrencyFormProps {
+  currency: Currency;
   isPending?: boolean;
   onSubmit?: (value: FormSchema) => void;
 }
@@ -31,10 +32,13 @@ export type CurrencyFormRef = {
 };
 export const CurrencyForm = forwardRef<CurrencyFormRef, CurrencyFormProps>(
   (props, ref) => {
-    const { isPending, onSubmit } = props;
+    const { isPending, onSubmit, currency } = props;
 
     const form = useForm<FormSchema>({
       resolver: zodResolver(formSchema),
+      defaultValues: {
+        currency,
+      },
     });
 
     const handleSubmit = useCallback(
