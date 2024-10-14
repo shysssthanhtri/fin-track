@@ -84,6 +84,7 @@ model User {
     sessions      Session[]
     posts         Post[]
     Transaction   Transaction[]
+    UserSetting   UserSetting[]
 }
 
 model VerificationToken {
@@ -107,4 +108,11 @@ model Transaction {
     time        DateTime        @db.Timestamptz // Use Timestamptz for PostgreSQL
     userId      String
     user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserSetting {
+    userId   String @id
+    currency String
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

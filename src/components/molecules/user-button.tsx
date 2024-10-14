@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import React from "react";
 
@@ -11,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Routes } from "@/config/routes";
 
 export const UserButton = () => {
   const { data: session } = useSession();
@@ -42,6 +44,12 @@ export const UserButton = () => {
             </p>
           </div>
         </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Link href={Routes.settings} className="w-full">
+            Settings
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
