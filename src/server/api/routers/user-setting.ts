@@ -1,5 +1,5 @@
 import { Currency } from "@/config/currency";
-import { UserSettingDto } from "@/dtos/user-setting.dto";
+import { UpdateUserSettingDto, UserSettingDto } from "@/dtos/user-setting.dto";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 
 export const userSettingRouter = createTRPCRouter({
@@ -21,4 +21,17 @@ export const userSettingRouter = createTRPCRouter({
       return UserSettingDto.parse(setting);
     });
   }),
+
+  update: protectedProcedure
+    .input(UpdateUserSettingDto)
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.userSetting.update({
+        where: {
+          userId: ctx.session.user.id,
+        },
+        data: {
+          ...input,
+        },
+      });
+    }),
 });
