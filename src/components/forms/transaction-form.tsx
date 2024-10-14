@@ -27,14 +27,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { type Currency } from "@/config/currency";
 import { CreateTransactionDto } from "@/dtos/transaction.dto";
 import { cn } from "@/lib/utils";
 import TransactionTypeSchema from "@/schemas/inputTypeSchemas/TransactionTypeSchema";
+import { getCurrencySymbol } from "@/utils/currency";
 import { formatDate } from "@/utils/date";
 
 interface TaskFormProps {
   isPending?: boolean;
   onSubmit?: (value: FormSchema) => void;
+  currency?: Currency;
 }
 export type TransactionFormRef = {
   reset: () => void;
@@ -42,7 +45,7 @@ export type TransactionFormRef = {
 };
 export const TransactionForm = forwardRef<TransactionFormRef, TaskFormProps>(
   (props, ref) => {
-    const { isPending, onSubmit } = props;
+    const { isPending, onSubmit, currency } = props;
 
     const form = useForm<FormSchema>({
       resolver: zodResolver(formSchema),
@@ -136,7 +139,9 @@ export const TransactionForm = forwardRef<TransactionFormRef, TaskFormProps>(
               name="amount"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Amount</FormLabel>
+                  <FormLabel>
+                    Amount ({currency && getCurrencySymbol(currency)})
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Amount"

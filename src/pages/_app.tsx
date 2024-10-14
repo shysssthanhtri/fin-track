@@ -8,6 +8,7 @@ import { ThemeProvider } from "next-themes";
 
 import { AuthGuard } from "@/components/guards/auth.guard";
 import { Toaster } from "@/components/ui/toaster";
+import { ApplicationContextProvider } from "@/contexts/application-context";
 import { cn } from "@/lib/utils";
 import { api } from "@/utils/api";
 
@@ -25,7 +26,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
           disableTransitionOnChange
         >
           <AuthGuard>
-            <Component {...pageProps} />
+            <ApplicationContextProvider>
+              <Component {...pageProps} />
+            </ApplicationContextProvider>
           </AuthGuard>
           <Toaster />
         </ThemeProvider>

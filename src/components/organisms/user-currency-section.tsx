@@ -6,17 +6,13 @@ import {
 } from "@/components/forms/currency-form";
 import { ButtonLoading } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useApplicationContext } from "@/contexts/application-context";
 import { toast } from "@/hooks/use-toast";
 import { api } from "@/utils/api";
 
 export const UserCurrencySection = () => {
   const ref = useRef<CurrencyFormRef>(null);
-
-  const {
-    data: userSetting,
-    isPending: isLoading,
-    refetch,
-  } = api.userSetting.get.useQuery();
+  const { setting } = useApplicationContext();
 
   const { mutate, isPending: isProcessing } =
     api.userSetting.update.useMutation({
@@ -25,7 +21,7 @@ export const UserCurrencySection = () => {
           title: "Saved",
         });
 
-        void refetch();
+        void setting?.refetch();
       },
       onError: (err) => {
         toast({
@@ -36,13 +32,17 @@ export const UserCurrencySection = () => {
       },
     });
 
+  if (!setting) {
+    throw new Error("Setting context is not init");
+  }
+
   return (
     <>
-      {isLoading && <Skeleton className="h-8 w-full" />}
-      {!!userSetting && (
+      {setting.isLoading && <Skeleton className="h-8 w-full" />}
+      {!!setting.data && (
         <div className="space-y-2">
           <CurrencyForm
-            currency={userSetting.currency}
+            currency={setting.data.currency}
             ref={ref}
             onSubmit={mutate}
             isPending={isProcessing}
