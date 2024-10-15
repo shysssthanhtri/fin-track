@@ -1,12 +1,15 @@
 import React from "react";
 
+import { useApplicationContext } from "@/contexts/application-context";
 import { type TTransactionDto } from "@/dtos/transaction.dto";
+import { formatCurrency } from "@/utils/currency";
 import { formatDate } from "@/utils/date";
 
 interface TransactionItemProps {
   transaction: TTransactionDto;
 }
 export const TransactionItem = ({ transaction }: TransactionItemProps) => {
+  const { setting } = useApplicationContext();
   return (
     <li className="flex items-center justify-between rounded bg-secondary p-2">
       <div>
@@ -21,7 +24,8 @@ export const TransactionItem = ({ transaction }: TransactionItemProps) => {
             transaction.type === "INCOME" ? "text-green-600" : "text-red-600"
           }
         >
-          {transaction.amount}
+          {setting?.data?.currency &&
+            formatCurrency(transaction.amount, setting.data.currency)}
         </span>
       </div>
     </li>
